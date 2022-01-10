@@ -208,6 +208,7 @@ def train():
 
         if args.start_iter == -1:
             args.start_iter = SavePath.from_str(args.resume).iteration
+        
     else:
         print('Initializing weights...')
         yolact_net.init_weights(backbone_path=args.save_folder + cfg.backbone.path)
@@ -237,11 +238,12 @@ def train():
     # loss counters
     loc_loss = 0
     conf_loss = 0
+    print(args.start_iter)
     iteration = max(args.start_iter, 0)
     last_time = time.time()
 
-    epoch_size = len(dataset) // args.batch_size
-    num_epochs = math.ceil(cfg.max_iter / epoch_size)
+    epoch_size = len(dataset) // args.batch_size  #1000/250  = 4
+    num_epochs = math.ceil(cfg.max_iter / epoch_size)   #max_iter = 12/4 = 3
     
     # Which learning rate adjustment step are we on? lr' = lr * gamma ^ step_index
     step_index = 0
