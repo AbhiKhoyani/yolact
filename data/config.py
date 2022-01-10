@@ -172,6 +172,19 @@ pascal_sbd_dataset = dataset_base.copy({
     'class_names': PASCAL_CLASSES,
 })
 
+traffic_dataset = dataset_base.copy({
+  'name': 'Traffic Custom Dataset',
+  
+  'train_images': '/content/gdrive/MyDrive/extra-dataset-site-7-2-3/images',
+  'valid_images': '/content/gdrive/MyDrive/extra-dataset-site-7-2-3/images',
+
+  'train_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/train_combined.json',
+  'valid_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/val_combined.json',
+
+  'class_names': ('Bicyclist','Large Bus','Microbus','Mini-trailer','Minibus','Motorcyclist','Other','Pedestrian','Pickup Truck','SUV','Sedan','Semi-truck','Tok-tok','Truck','Truck Trailer'),
+  'label_map': { 0: 4, 1:9, 2:0, 3:14, 4:7,5:5,6:10,7:1,8:6,9:2,10:3,11:8,12:12,13:13,14:11 }
+
+})
 
 
 
@@ -766,6 +779,17 @@ yolact_resnet50_pascal_config = yolact_resnet50_config.copy({
         'use_square_anchors': False,
     })
 })
+
+yolact_resnet50_custom_traffic = yolact_resnet50_config.copy({
+    'name': 'yolact_plus_resnet50_custom_traffic',
+    # Dataset stuff
+    'dataset': traffic_dataset,
+    'num_classes': len(traffic_dataset.class_names) + 1,
+    'max_iter': 375,
+    # Image Size
+    'max_size': 512,
+})
+
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #
 
