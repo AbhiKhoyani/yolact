@@ -238,12 +238,14 @@ def train():
     # loss counters
     loc_loss = 0
     conf_loss = 0
-    print(args.start_iter)
+    
     iteration = max(args.start_iter, 0)
     last_time = time.time()
 
     epoch_size = len(dataset) // args.batch_size  #1000/250  = 4
     num_epochs = math.ceil(cfg.max_iter / epoch_size)   #max_iter = 12/4 = 3
+    
+    print(f"Iteration:{iteration},\tlen(dataset):{len(dataset)},\tnum_epochs:{num_epochs}\nmax_iter:{max_iter}\tfactor:{factor}")
     
     # Which learning rate adjustment step are we on? lr' = lr * gamma ^ step_index
     step_index = 0
