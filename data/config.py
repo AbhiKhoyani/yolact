@@ -785,7 +785,7 @@ yolact_resnet50_custom_traffic = yolact_resnet50_config.copy({
     # Dataset stuff
     'dataset': traffic_dataset,
     'num_classes': len(traffic_dataset.class_names) + 1,
-    'max_iter': 375,
+    'max_iter': 160,
     # Image Size
     'max_size': 512,
 })
