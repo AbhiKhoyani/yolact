@@ -1,3 +1,5 @@
+Modified train.py and config.py according to my applcation in Colab.
+
 # **Y**ou **O**nly **L**ook **A**t **C**oefficien**T**s
 ```
     ██╗   ██╗ ██████╗ ██╗      █████╗  ██████╗████████╗
