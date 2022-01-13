@@ -272,7 +272,7 @@ def train():
                 continue
             
             for datum in data_loader:
-                print(f"datum:{datum}")
+#                 print(f"datum:{datum}")
                 # Stop if we've reached an epoch if we're resuming from start_iter
                 if iteration == (epoch+1)*epoch_size:
                     break
