@@ -175,8 +175,8 @@ pascal_sbd_dataset = dataset_base.copy({
 traffic_dataset = dataset_base.copy({
   'name': 'Traffic Custom Dataset',
   
-  'train_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Train_Images_561',
-  'valid_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Val_Images_100',
+  'train_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Train_Images_485',
+  'valid_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Val_Images_98',
 
   'train_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/train_combined.json',
   'valid_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/val_combined.json',
