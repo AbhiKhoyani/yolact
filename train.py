@@ -378,14 +378,14 @@ def train():
         
         # Compute validation mAP after training is finished
         compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
-    except KeyboardInterrupt:
-        if args.interrupt:
-            print('Stopping early. Saving network...')
-            
-            # Delete previous copy of the interrupted network so we don't spam the weights folder
-            SavePath.remove_interrupt(args.save_folder)
-            
-            yolact_net.save_weights(save_path(epoch, repr(iteration) + '_interrupt'))
+    except:
+        #if args.interrupt:
+        print('Stopping early. Saving network...')
+
+        # Delete previous copy of the interrupted network so we don't spam the weights folder
+        SavePath.remove_interrupt(args.save_folder)
+
+        yolact_net.save_weights(save_path(epoch, repr(iteration) + '_interrupt'))
         exit()
 
     yolact_net.save_weights(save_path(epoch, iteration))
