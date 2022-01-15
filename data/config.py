@@ -181,8 +181,12 @@ traffic_dataset = dataset_base.copy({
   'train_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/train_combined.json',
   'valid_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/val_combined.json',
 
-  'class_names': ('Bicyclist','Large Bus','Microbus','Mini-trailer','Minibus','Motorcyclist','Other','Pedestrian','Pickup Truck','SUV','Sedan','Semi-truck','Tok-tok','Truck','Truck Trailer'),
-  'label_map': { 0: 4, 1:9, 2:0, 3:14, 4:7,5:5,6:10,7:1,8:6,9:2,10:3,11:8,12:12,13:13,14:11 }
+   'class_names': ('Pedestrian', 'SUV', 'Sedan', 'Bicyclist', 'Motorcyclist', 'Pickup Truck', 'Minibus', 'Semi-truck', 'Large Bus', 'Other', 'Truck Trailer', 'Tok-tok', 'Truck', 'Mini-trailer', 'Microbus'),
+    'label_map': { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
+                   9:  9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 0: 15},
+ 
+#   'class_names': ('Bicyclist','Large Bus','Microbus','Mini-trailer','Minibus','Motorcyclist','Other','Pedestrian','Pickup Truck','SUV','Sedan','Semi-truck','Tok-tok','Truck','Truck Trailer'),
+#   'label_map': { 0: 4, 1:9, 2:0, 3:14, 4:7,5:5,6:10,7:1,8:6,9:2,10:3,11:8,12:12,13:13,14:11 }
 
 })
 
