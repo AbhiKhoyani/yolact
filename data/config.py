@@ -62,7 +62,6 @@ class Config(object):
     """
     Holds the configuration for anything you want it to.
     To get the currently active config, call get_cfg().
-
     To use, just do cfg.x instead of cfg['x'].
     I made this because doing cfg['x'] all the time is dumb.
     """
@@ -172,23 +171,6 @@ pascal_sbd_dataset = dataset_base.copy({
     'class_names': PASCAL_CLASSES,
 })
 
-traffic_dataset = dataset_base.copy({
-  'name': 'Traffic Custom Dataset',
-  
-  'train_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Train_Images_485',
-  'valid_images': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/Val_Images_98',
-
-  'train_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/train_combined.json',
-  'valid_info': '/content/gdrive/MyDrive/Darwin Traffic Custom Data/val_combined.json',
-
-   'class_names': ('Pedestrian', 'SUV', 'Sedan', 'Bicyclist', 'Motorcyclist', 'Pickup Truck', 'Minibus', 'Semi-truck', 'Large Bus', 'Other', 'Truck Trailer', 'Tok-tok', 'Truck', 'Mini-trailer', 'Microbus'),
-    'label_map': { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
-                   9:  9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 0: 15},
- 
-#   'class_names': ('Bicyclist','Large Bus','Microbus','Mini-trailer','Minibus','Motorcyclist','Other','Pedestrian','Pickup Truck','SUV','Sedan','Semi-truck','Tok-tok','Truck','Truck Trailer'),
-#   'label_map': { 0: 4, 1:9, 2:0, 3:14, 4:7,5:5,6:10,7:1,8:6,9:2,10:3,11:8,12:12,13:13,14:11 }
-
-})
 
 
 
@@ -784,17 +766,6 @@ yolact_resnet50_pascal_config = yolact_resnet50_config.copy({
     })
 })
 
-yolact_resnet50_custom_traffic = yolact_resnet50_config.copy({
-    'name': 'yolact_plus_resnet50_custom_traffic',
-    # Dataset stuff
-    'dataset': traffic_dataset,
-    'num_classes': len(traffic_dataset.class_names) + 1,
-    'max_iter': 160,
-    # Image Size
-    'max_size': 512,
-})
-
-
 # ----------------------- YOLACT++ CONFIGS ----------------------- #
 
 yolact_plus_base_config = yolact_base_config.copy({
@@ -833,6 +804,39 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
     }),
 })
 
+
+
+cars_dataset = dataset_base.copy({
+    'name': 'Cars Identity',
+    
+    #'train_images': 'C:/ai/reference/images/',
+    #'train_info':   'C:/ai/reference/annotations.json',
+
+    #'valid_images': 'C:/ai/reference/images/',
+    #'valid_info':   'C:/ai/reference/annotations.json',
+    
+    'train_images': '/content/data/references/images',
+    'train_info':   '/content/data/references/annotations.json',
+
+    'valid_images': '/content/data/references/images',
+    'valid_info':   '/content/data/references/annotations.json',
+
+    'has_gt': False,
+   
+    'class_names': ('Pedestrian', 'SUV', 'Sedan', 'Bicyclist', 'Motorcyclist', 'Pickup Truck', 'Minibus', 'Semi-truck', 'Large Bus', 'Other', 'Truck Trailer', 'Tok-tok', 'Truck', 'Mini-trailer', 'Microbus'),
+    'label_map': { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
+                   9:  9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 0: 15},
+    
+})
+
+
+yolact_resnet50_cars_config = yolact_resnet50_config.copy({
+    'name': 'yolact_resnet50_cars',
+    # Dataset stuff
+    'dataset': cars_dataset,
+    'num_classes': len(cars_dataset.class_names) + 1,
+
+})
 
 # Default config
 cfg = yolact_base_config.copy()
