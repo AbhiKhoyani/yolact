@@ -208,7 +208,6 @@ def train():
 
         if args.start_iter == -1:
             args.start_iter = SavePath.from_str(args.resume).iteration
-        
     else:
         print('Initializing weights...')
         yolact_net.init_weights(backbone_path=args.save_folder + cfg.backbone.path)
@@ -238,14 +237,11 @@ def train():
     # loss counters
     loc_loss = 0
     conf_loss = 0
-    
     iteration = max(args.start_iter, 0)
     last_time = time.time()
 
-    epoch_size = len(dataset) // args.batch_size  #1000/250  = 4
-    num_epochs = math.ceil(cfg.max_iter / epoch_size)   #max_iter = 12/4 = 3
-    
-    print(f"Iteration:{iteration},\tlen(dataset):{len(dataset)},\tnum_epochs:{num_epochs}\nmax_iter:{cfg.max_iter}\tfactor:{args.batch_size / 8}")
+    epoch_size = len(dataset) // args.batch_size
+    num_epochs = math.ceil(cfg.max_iter / epoch_size)
     
     # Which learning rate adjustment step are we on? lr' = lr * gamma ^ step_index
     step_index = 0
@@ -253,7 +249,7 @@ def train():
     data_loader = data.DataLoader(dataset, args.batch_size,
                                   num_workers=args.num_workers,
                                   shuffle=False, collate_fn=detection_collate,
-                                  pin_memory=True)
+                                  pin_memory=True, generator=torch.Generator(device='cuda'))
     
     
     save_path = lambda epoch, iteration: SavePath(cfg.name, epoch, iteration).get_path(root=args.save_folder)
@@ -272,8 +268,6 @@ def train():
                 continue
             
             for datum in data_loader:
-                #print(f"datum:{datum.}")
-                #print(f"{}")  
                 # Stop if we've reached an epoch if we're resuming from start_iter
                 if iteration == (epoch+1)*epoch_size:
                     break
@@ -378,14 +372,14 @@ def train():
         
         # Compute validation mAP after training is finished
         compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
-    except:
-        #if args.interrupt:
-        print('Stopping early. Saving network...')
-
-        # Delete previous copy of the interrupted network so we don't spam the weights folder
-        SavePath.remove_interrupt(args.save_folder)
-
-        yolact_net.save_weights(save_path(epoch, repr(iteration) + '_interrupt'))
+    except KeyboardInterrupt:
+        if args.interrupt:
+            print('Stopping early. Saving network...')
+            
+            # Delete previous copy of the interrupted network so we don't spam the weights folder
+            SavePath.remove_interrupt(args.save_folder)
+            
+            yolact_net.save_weights(save_path(epoch, repr(iteration) + '_interrupt'))
         exit()
 
     yolact_net.save_weights(save_path(epoch, iteration))
